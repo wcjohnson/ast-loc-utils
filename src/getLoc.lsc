@@ -1,0 +1,8 @@
+// Get a Babel location mixin for the given node.
+export default getLoc(node) ->
+  if node.loc:
+    {
+      start: node.start
+      end: node.end
+      loc: Object.assign({}, node.loc)
+    }

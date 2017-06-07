@@ -1,0 +1,26 @@
+// Get a Babel location mixin that surrounds all the given nodes.
+export default getSurroundingLoc(nodes) ->
+  let minLine = Number.POSITIVE_INFINITY, maxLine = Number.NEGATIVE_INFINITY
+  let minCol = Number.POSITIVE_INFINITY, maxCol = Number.NEGATIVE_INFINITY
+  let minStart = Number.POSITIVE_INFINITY, maxEnd = Number.NEGATIVE_INFINITY
+
+  for elem node in nodes:
+    if (node.start && node.start < minStart) now minStart = node.start
+    if (node.end && node.end > maxEnd) now maxEnd = node.end
+    if node.loc:
+      if node.loc.start:
+        if(node.loc.start.line < minLine) now minLine = node.loc.start.line
+        if(node.loc.start.column < minCol) now minCol = node.loc.start.column
+      if node.loc.end:
+        if(node.loc.end.line > maxLine) now maxLine = node.loc.end.line
+        if(node.loc.end.column > maxCol) now maxCol = node.loc.end.column
+
+  if isFinite(minLine) and isFinite(minCol) and isFinite(minStart):
+    {
+      start: minStart
+      end: maxEnd
+      loc: {
+        start: { line: minLine, column: minCol }
+        end: { line: maxLine, column: maxCol}
+      }
+    }

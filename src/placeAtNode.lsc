@@ -1,0 +1,5 @@
+import getLoc from './getLoc'
+
+// Copy location information from the source node to the newly created node.
+export default placeAtNode(newNode, sourceNode) ->
+  Object.assign(newNode, getLoc(sourceNode))

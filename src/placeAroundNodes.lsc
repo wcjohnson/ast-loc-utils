@@ -1,0 +1,6 @@
+import getSurroundingLoc from './getSurroundingLoc'
+
+// Alter the location information of a node so that it surrounds a list of
+// other nodes.
+export default placeAroundNodes(newNode, ...nodes) ->
+  Object.assign(newNode, getSurroundingLoc(nodes))

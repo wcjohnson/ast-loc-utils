@@ -1,0 +1,31 @@
+// Given a loc, extract a subloc spanning a given number of characters.
+// Negative numbers start from the end of the range.
+// Due to absence of line number information, it is assumed that the span
+// begins or ends on the same line.
+export default span(loc, n) ->
+  if not loc:
+    null
+
+  elif n >= 0:
+    if loc.start + n > loc.end:
+      throw new Error("Span boundary out of range")
+    {
+      start: loc.start
+      end: loc.start + n
+      loc: {
+        start: { line: loc.loc.start.line, column: loc.loc.start.column }
+        end: { line: loc.loc.start.line, column: loc.loc.start.column + n }
+      }
+    }
+
+  elif n < 0:
+    if loc.end - n < loc.start:
+      throw new Error("Span boundary out of range")
+    {
+      start: loc.end - n
+      end: loc.end
+      loc: {
+        start: { line: loc.loc.end.line, column: loc.loc.end.column - n }
+        end: { line: loc.loc.end.line, column: loc.loc.end.column }
+      }
+    }

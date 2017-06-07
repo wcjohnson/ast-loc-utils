@@ -1,0 +1,3 @@
+// Build a node using a babel-types builder, and emplace it at the given location.
+export default buildAtLoc(loc, builder, ...args) ->
+  Object.assign(builder.apply(null, args), loc)

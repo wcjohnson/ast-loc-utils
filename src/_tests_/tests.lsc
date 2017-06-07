@@ -1,0 +1,52 @@
+import { assert, expect } from 'chai'
+import getLoc from '../getLoc'
+import getSurroundingLoc from '../getSurroundingLoc'
+import placeAtLoc from '../placeAtLoc'
+import placeAtNode from '../placeAtNode'
+
+describe('tests', ->
+  it('should place at', ->
+    testNode = {
+      start: 0, end: 10
+      loc: { 
+        start: { line: 0, column: 0 }
+        end: { line: 0, column: 10 }
+      }
+    }
+
+    loc = getLoc(testNode)
+    assert.deepEqual(loc, testNode)
+    fakeNode = {}
+    assert.deepEqual(placeAtLoc(fakeNode, loc), testNode)
+    assert.deepEqual(placeAtNode(fakeNode, testNode), testNode)
+  )
+
+  it('should place around', ->
+    test1 = {
+      start: 50, end: 60
+      loc: { 
+        start: { line: 5, column: 0 }
+        end: { line: 5, column: 10 }
+      }
+    }
+    test2 = {
+      start: 61, end: 70
+      loc: { 
+        start: { line: 6, column: 0 }
+        end: { line: 6, column: 10 }
+      }
+    }
+    expected = {
+      start: 50, end: 70
+      loc: {
+        start: { line: 5, column: 0 }
+        end: { line: 6, column: 10 }
+      }
+    }
+
+    loc = getSurroundingLoc([test1, test2])
+    console.log(loc)
+    assert.deepEqual(loc, expected)
+
+  )
+)
