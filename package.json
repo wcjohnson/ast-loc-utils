@@ -1,6 +1,6 @@
 {
   "name": "ast-loc-utils",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Tools for manipulating node source locations in a Babel AST.",
   "main": "lib/index.js",
   "files": [
@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "prepublish": "npm run clean && npm run build",
+    "preversion": "npm run clean && npm run test",
     "clean": "rimraf lib build",
     "build:babel:base": "babel -x \".js\",\".jsx\",\".lsc\",\".lsx\"",
     "build:babel:commonjs": "mkdirp lib && cross-env BABEL_ENV=commonjs npm run build:babel:base -- src --out-dir lib",
@@ -51,6 +52,5 @@
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
     "rimraf": "^2.6.1"
-  },
-  "dependencies": {}
+  }
 }
