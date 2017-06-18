@@ -1,0 +1,14 @@
+// Traverse a Babel AST.
+export default traverse(node, visitor) ->
+  visitor(node)
+  for const key in node:
+    if key[0] === "_": continue
+    val = node[key]
+    if val:
+      if val.type:
+        traverse(val, visitor)
+      elif Array.isArray(val):
+        for elem e in val:
+          traverse(e, visitor)
+
+  undefined

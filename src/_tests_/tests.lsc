@@ -3,12 +3,14 @@ import getLoc from '../getLoc'
 import getSurroundingLoc from '../getSurroundingLoc'
 import placeAtLoc from '../placeAtLoc'
 import placeAtNode from '../placeAtNode'
+import placeTreeAtLoc from '../placeTreeAtLoc'
+import placeTreeAtLocWhenUnplaced from '../placeTreeAtLocWhenUnplaced'
 
 describe('tests', ->
   it('should place at', ->
     testNode = {
       start: 0, end: 10
-      loc: { 
+      loc: {
         start: { line: 0, column: 0 }
         end: { line: 0, column: 10 }
       }
@@ -24,14 +26,14 @@ describe('tests', ->
   it('should place around', ->
     test1 = {
       start: 50, end: 60
-      loc: { 
+      loc: {
         start: { line: 5, column: 0 }
         end: { line: 5, column: 10 }
       }
     }
     test2 = {
       start: 61, end: 70
-      loc: { 
+      loc: {
         start: { line: 6, column: 0 }
         end: { line: 6, column: 10 }
       }
@@ -47,6 +49,64 @@ describe('tests', ->
     loc = getSurroundingLoc([test1, test2])
     console.log(loc)
     assert.deepEqual(loc, expected)
+  )
 
+  it('should place children', ->
+    child = {
+      type: 'Child'
+      start: 50, end: 60
+      loc: {
+        start: { line: 5, column: 0 }
+        end: { line: 5, column: 10 }
+      }
+    }
+
+    unplaced = {
+      type: 'UnplacedChild'
+    }
+
+    parent = {
+      type: 'Parent'
+      start: 40, end: 60
+      loc: {
+        start: { line: 5, column: 0 }
+        end: { line: 5, column: 10 }
+      }
+      children: [ child, unplaced ]
+    }
+
+    placeTreeAtLoc(parent, getLoc(parent))
+    assert.deepEqual(getLoc(child), getLoc(parent))
+    assert.deepEqual(getLoc(unplaced), getLoc(parent))
+  )
+
+  it('should place unplaced', ->
+    child = {
+      type: 'Child'
+      start: 50, end: 60
+      loc: {
+        start: { line: 5, column: 0 }
+        end: { line: 5, column: 10 }
+      }
+    }
+
+    unplaced = {
+      type: 'UnplacedChild'
+    }
+
+    parent = {
+      type: 'Parent'
+      start: 40, end: 60
+      loc: {
+        start: { line: 5, column: 0 }
+        end: { line: 5, column: 10 }
+      }
+      children: [ child, unplaced ]
+    }
+
+    originalLoc = getLoc(child)
+    placeTreeAtLocWhenUnplaced(parent, getLoc(parent))
+    assert.deepEqual(getLoc(unplaced), getLoc(parent))
+    assert.deepEqual(getLoc(child), originalLoc)
   )
 )

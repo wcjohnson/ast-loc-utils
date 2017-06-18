@@ -3,6 +3,9 @@
   "version": "1.0.3",
   "description": "Tools for manipulating node source locations in a Babel AST.",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "prepublish": "npm run clean && npm run build",
     "clean": "rimraf lib build",
@@ -22,19 +25,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wcjohnson/lightscript-utils.git"
+    "url": "https://github.com/wcjohnson/lightscript.git"
   },
   "keywords": [
     "babel",
     "ast",
     "sourcemap"
   ],
-  "author": "William C. Johnson <wcjohnson@oigroup.net> (https://github.com/wcjohnson)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wcjohnson/lightscript-utils/issues"
+    "url": "https://github.com/wcjohnson/lightscript/issues"
   },
-  "homepage": "https://github.com/wcjohnson/lightscript-utils",
+  "homepage": "https://github.com/wcjohnson/lightscript",
   "devDependencies": {
     "@oigroup/babel-plugin-lightscript": "^1.0.3",
     "@oigroup/lightscript-eslint": "^1.0.3",

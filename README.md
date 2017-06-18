@@ -38,6 +38,18 @@ placeAtLoc(node: BabelNode, loc: LocationMixin) -> BabelNode
 ```
 Replaces the location information on the given node. Returns the node. Equivalent to `Object.assign(node, loc)`.
 
+### placeTreeAtLoc
+```js
+placeTreeAtLoc(node: BabelNode, loc: LocationMixin) -> BabelNode
+```
+Replaces the location information on the given node *and all descendants*. Returns the node.
+
+### placeTreeAtLocWhenUnplaced
+```js
+placeTreeAtLocWhenUnplaced(node: BabelNode, loc: LocationMixin) -> BabelNode
+```
+Replaces the location on all descendants of the given node *only if they do not already have location information present*. Returns the node.
+
 ### placeAtNode
 ```js
 placeAtNode(targetNode: BabelNode, sourceNode: BabelNode) -> BabelNode
@@ -54,7 +66,6 @@ Assigns a source location to the `targetNode` that surrounds the total extent of
 ```js
 span(loc: LocationMixin, n: Integer) -> LocationMixin
 ```
-
 Create a `LocationMixin` obtained by extracting the first or last `n` characters of the given `LocationMixin`. If `n` is positive, the first `n` characters are extracted; if negative, the last `n` are extracted.
 
 >Note that this operation has no insight into the token stream or newline boundaries. When extracting a span, you must be sure that all characters in your span are on the same source line. If the span would cross a line boundary, the resulting output will be incorrect.

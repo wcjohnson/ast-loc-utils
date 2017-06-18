@@ -1,0 +1,8 @@
+import traverse from './traverse'
+
+export default placeTreeAtLoc(node, loc) ->
+  if loc:
+    traverse(node, (visited) ->
+      if not visited.loc: Object.assign(visited, loc)
+    )
+  node
